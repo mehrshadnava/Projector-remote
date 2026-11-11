@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key tags, wired in MainActivity.wireKeys:
+     "k:<HID keyboard usage>"  "c:<HID consumer usage>"  "m:<mouse button bit>" -->
+<!-- outer frame takes the system-bar insets; fitsSystemWindows would overwrite the inner padding -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/bg_app" android:fitsSystemWindows="true">
+<LinearLayout
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:paddingHorizontal="16dp" android:paddingTop="12dp" android:paddingBottom="8dp">
+
+    <!-- header: title, connection pill, power -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Projector" android:textSize="28sp" android:textStyle="bold"
+                android:textColor="@color/text" android:letterSpacing="0.02" />
+            <TextView android:id="@+id/status" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:background="@drawable/bg_pill"
+                android:drawableStart="@drawable/dot" android:drawablePadding="8dp"
+                android:paddingHorizontal="14dp" android:paddingVertical="7dp"
+                android:textColor="@color/text" android:textSize="13sp" android:text="Starting…"
+                android:clickable="true" android:focusable="true" android:onClick="onConnect" />
+        </LinearLayout>
+        <ImageButton android:id="@+id/power" android:layout_width="56dp" android:layout_height="56dp"
+            android:background="@drawable/btn_round" android:src="@drawable/ic_power" android:tint="@color/accent2"
+            android:contentDescription="Screen off or on. Hold for standby" />
+    </LinearLayout>
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="12dp">
+
+        <!-- REMOTE -->
+        <LinearLayout android:id="@+id/page_remote" android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:gravity="center_horizontal">
+            <View android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+            <view class="com.projector.remote.DPad" android:id="@+id/dpad"
+                android:layout_width="290dp" android:layout_height="290dp" android:contentDescription="Direction pad" />
+            <View android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+                <ImageButton android:layout_width="64dp" android:layout_height="64dp" android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/btn_round" android:src="@drawable/ic_back" android:tint="@color/text"
+                    android:tag="c:0x224" android:contentDescription="Back" />
+                <ImageButton android:layout_width="64dp" android:layout_height="64dp" android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/btn_round" android:src="@drawable/ic_home" android:tint="@color/accent"
+                    android:tag="c:0x223" android:contentDescription="Home" />
+                <ImageButton android:layout_width="64dp" android:layout_height="64dp" android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/btn_round" android:src="@drawable/ic_menu" android:tint="@color/text"
+                    android:tag="c:0x40" android:contentDescription="Menu" />
+                <ImageButton android:layout_width="64dp" android:layout_height="64dp" android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/btn_round" android:src="@drawable/ic_keystone" android:tint="@color/accent2"
+                    android:tag="c:0x18E" android:contentDescription="Keystone: adjust picture corners" />
+            </LinearLayout>
+            <View android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/bg_surface" android:padding="8dp">
+                <ImageButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="60dp" android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/btn_key" android:src="@drawable/ic_vol_down" android:tint="@color/text"
+                    android:tag="c:0xEA" android:contentDescription="Volume down" />
+                <ImageButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="60dp" android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/btn_key" android:src="@drawable/ic_mute" android:tint="@color/text"
+                    android:tag="c:0xE2" android:contentDescription="Mute" />
+                <ImageButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="60dp" android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/btn_key" android:src="@drawable/ic_playpause" android:tint="@color/accent"
+                    android:tag="c:0xCD" android:contentDescription="Play or pause" />
+                <ImageButton android:layout_width="0dp" android:layout_weight="1" android:layout_height="60dp" android:layout_marginHorizontal="4dp"
+                    android:background="@drawable/btn_key" android:src="@drawable/ic_vol_up" android:tint="@color/text"
+                    android:tag="c:0xE9" android:contentDescription="Volume up" />
+            </LinearLayout>
+            <View android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="0.5" />
+        </LinearLayout>
+
+        <!-- TOUCHPAD -->
+        <LinearLayout android:id="@+id/page_touch" android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:visibility="gone">
+            <view class="com.projector.remote.Trackpad" android:id="@+id/pad"
+                android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+                android:background="@drawable/bg_surface" android:contentDescription="Trackpad" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp">
+                <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="64dp" android:layout_marginEnd="5dp"
+                    android:background="@drawable/btn_key" android:textColor="@color/text" android:textAllCaps="false"
+                    android:text="Left click" android:tag="m:1" />
+                <Button android:layout_width="0dp" android:layout_weight="1" android:layout_height="64dp" android:layout_marginStart="5dp"
+                    android:background="@drawable/btn_key" android:textColor="@color/text" android:textAllCaps="false"
+                    android:text="Right click" android:tag="m:2" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- KEYBOARD -->
+        <LinearLayout android:id="@+id/page_keys" android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical" android:visibility="gone">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/text_dim" android:textSize="13sp"
+                android:text="Letters appear on the projector as you type." />
+            <EditText android:id="@+id/type" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" android:background="@drawable/bg_field" android:padding="16dp"
+                android:textSize="18sp" android:textColor="@color/text" android:textColorHint="@color/text_dim"
+                android:hint="Start typing…" android:imeOptions="actionSend"
+                android:inputType="text|textNoSuggestions|textVisiblePassword" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp">
+                <Button style="@style/Key" android:text="Esc" android:tag="k:0x29" />
+                <Button style="@style/Key" android:text="▲" android:tag="k:0x52" android:contentDescription="Up" />
+                <ImageButton style="@style/Key" android:src="@drawable/ic_backspace" android:tint="@color/text" android:tag="k:0x2A" android:contentDescription="Backspace" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <Button style="@style/Key" android:text="◀" android:tag="k:0x50" android:contentDescription="Left" />
+                <Button style="@style/Key" android:text="▼" android:tag="k:0x51" android:contentDescription="Down" />
+                <Button style="@style/Key" android:text="▶" android:tag="k:0x4F" android:contentDescription="Right" />
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <Button style="@style/Key" android:text="Tab" android:tag="k:0x2B" />
+                <Button style="@style/Key" android:text="Space" android:tag="k:0x2C" />
+                <ImageButton style="@style/Key" android:src="@drawable/ic_enter" android:tint="@color/accent" android:tag="k:0x28" android:contentDescription="Enter" />
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- tabs -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" android:background="@drawable/bg_surface" android:padding="6dp">
+        <TextView android:id="@+id/tab0" style="@style/Tab" android:text="Remote" android:drawableTop="@drawable/ic_tab_remote" android:tag="0" />
+        <TextView android:id="@+id/tab1" style="@style/Tab" android:text="Touchpad" android:drawableTop="@drawable/ic_tab_touch" android:tag="1" />
+        <TextView android:id="@+id/tab2" style="@style/Tab" android:text="Keyboard" android:drawableTop="@drawable/ic_tab_keys" android:tag="2" />
+    </LinearLayout>
+</LinearLayout>
+</FrameLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runs ON THE PROJECTOR. Black screen + lowest lamp level while Android stays awake. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.projector.blank">
+    <application android:label="@string/app_name" android:icon="@android:drawable/ic_lock_power_off">
+        <!-- translucent so the app underneath only pauses (music/video keep playing) -->
+        <activity android:name=".BlankActivity" android:exported="true" android:launchMode="singleInstance"
+            android:excludeFromRecents="true" android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- shortcut: the phone remote opens this with the "Calculator" app-launch key (unused on the projector) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.APP_CALCULATOR" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".KeystoneActivity" android:exported="true" android:launchMode="singleInstance"
+            android:label="Keystone" android:excludeFromRecents="true" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- shortcut: the phone remote opens this with the "Calendar" app-launch key (unused on the projector) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.APP_CALENDAR" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
