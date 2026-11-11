@@ -144,3 +144,10 @@ Found by reading the projector's `framework.jar`, `services.jar` and `TwdSetting
 | Keystone corners jump back | Vertical Keystone (auto) is on in the projector settings. Turn it off. |
 | Screen off does nothing | The projector helper isn't installed, or another app on the projector claims the Calculator key. |
 | Remote drops after a while | Set the phone app's battery usage to **Unrestricted**. |
+
+## License
+
+[MIT](LICENSE) © 2026 Mehrshad Nava.
+
+The button icons are path data from Google's [Material Icons](https://github.com/google/material-design-icons),
+licensed under Apache 2.0.
